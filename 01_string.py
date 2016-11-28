@@ -20,7 +20,12 @@
 # а donuts(23) - 'Количество пончиков: много'
 def donuts(count):
     # +++ ваш код +++
-    return
+    res = "Количество пончиков: "
+    if count < 10:
+        res += str(count)
+    else:
+        res += "много"
+    return res
 
 
 # B. Оба конца
@@ -32,7 +37,10 @@ def donuts(count):
 # верните просто пустую строчку.
 def both_ends(s):
     # +++ ваш код +++
-    return
+    if len(s) < 2:
+        return ""
+    else:
+        return s[:2] + s[-2:]
 
 
 # C. Кроме первого
@@ -45,7 +53,10 @@ def both_ends(s):
 # в которой все вхождения stra будут заменены на strb.
 def fix_start(s):
     # +++ ваш код +++
-    return
+    res=s[0]
+    str_=s[1:]
+    res+=str_.replace(res,"*")
+    return res
 
 
 # D. Перемешивание
@@ -56,7 +67,7 @@ def fix_start(s):
 #   'mix', 'pod' -> 'pox mid'
 #   'dog', 'dinner' -> 'dig donner'
 # Предполагается, что строки a и b имеют длину 2 и более символов.
-def mix_up(a, b):    
+def mix_up(a, b):
     # +++ ваш код +++
     return
 
@@ -84,7 +95,6 @@ def not_bad(s):
 def front_back(a, b):
     # +++ ваш код +++
     return
-
 
 
 # Простая функция test() используется в main() для вывода
