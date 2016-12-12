@@ -2,10 +2,22 @@ __author__ = "Ассонов Максим"
 
 # Задание-1: уравнение прямой вида y = kx - b задано ввиде строки.
 # Определить координату y, точки с заданной координатой x
-
-equation = 'y = -12x + 11111140.2121'
-x = 2.5
+# equation = 'y = -12x + 11111140.2121'
+# x = 2.5
 # вычислите и выведите y
+# Комментарий к решению: логика распознавания чисел упрощена, выделяются 2 числа по шаблону
+# [0-9]+\.?[0-9]*, остальной текст не анализируется, при ошибке (не выделено 2 числа) возвращается None
+import re
+
+def ex2(equation, x):
+    pattern="[0-9]+\.?[0-9]*"
+    numbers = re.findall(pattern,equation)
+    if len(numbers) == 2:
+        k=float(numbers[0])
+        b=float(numbers[1])
+        res = k*x+b
+        return res
+
 
 # Задание-2: Дата задана в виде строки формата 'dd.mm.yyyy'. Проверить, корректно ли введена дата.
 # Условия корректности:
@@ -21,6 +33,23 @@ date = '01.11.1985'
 date = '01.22.1001'
 date = '1.12.1001'
 date = '-2.10.3001'
+
+def check_date(textdate):
+    try:
+        numbers = textdate.split(".")
+        # print(numbers)
+        if len(numbers) != 3: return False
+        if (len(numbers[0]) != 2) or (len(numbers[1]) != 2) or (len(numbers[2]) != 4): return False
+        date = int(numbers[0])
+        month = int(numbers[1])
+        year = int(numbers[2])
+        if 0<year<10000:
+            if 0<month<13:
+                if 0<date<31: return True
+                if (date == 31) and (month in (1,3,5,7,8,10,12)): return True
+        return False
+    except:
+        return False
 
 # Задание-3: "Перевернутая башня" (Задача олимпиадного уровня)
 #
@@ -74,7 +103,23 @@ def test(text,got, expected):
     prefix = "OK" if got == expected else "X"
     print("{0} - Тест: {1} | Получено: {2} | Ожидалось: {3}".format(prefix, text, repr(got), repr(expected)))
 
-print("Задание-3: Перевернутая башня")
+
+print("Задание 1: вычисление y")
+test("1", ex2("343",2),None)
+test("2", ex2('y = -12x + 11111140.2121',2.5),11111170.2121)
+test("3", ex2("y=3x+5.1",4),17.1)
+
+print("\nЗадание 2: проверка даты")
+tests=(("31.12.0002",True),
+       ("29.02.0900",True),
+       ("01.11.1985",True),
+       ('01.22.1001',False),
+       ('1.12.1001',False),
+       ('-2.10.3001',False))
+for text,expected in tests:
+    test(text,check_date(text),expected)
+
+print("\nЗадание 3: Перевернутая башня")
 test("14",babylon_tower(14),(6,3))
 test("15",babylon_tower(15),(7,1))
 test("25",babylon_tower(25),(9,3))
