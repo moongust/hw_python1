@@ -1,5 +1,8 @@
 __author__ = "Ассонов Максим"
 
+import time
+import random
+
 # Задание-1:
 # Написать программу, выполняющую операции (сложение и вычитание) с простыми дробями.
 # Дроби вводятся и выводятся в формате: n x/y ,где n - целая часть, x - числитель, у - знаменатель.
@@ -9,6 +12,23 @@ __author__ = "Ассонов Максим"
 # Вывод: 1 17/42 (результат обязательно упростить и выделить целую часть)
 # Ввод: -2/3 - -2
 # Вывод: 1 2/3
+
+def gcd(a,b):
+    while b:
+        a,b = b,a%b
+    return a
+
+class Fraction:
+
+    def __init__(self,n,x,y):
+        if y == 0: raise Exception("Fraction can't have y==0")
+        self._x, self._y = x+n*y, y
+
+    def __add__(self, other):
+        x=self._x*other._y+self._y*other._x
+        y=self._y*other._y
+
+
 
 
 
