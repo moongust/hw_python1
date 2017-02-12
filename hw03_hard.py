@@ -1,7 +1,11 @@
 __author__ = "Ассонов Максим"
 
-import time
-import random
+import re
+# import time
+# import random
+
+import testfunc
+
 
 # Задание-1:
 # Написать программу, выполняющую операции (сложение и вычитание) с простыми дробями.
@@ -13,23 +17,47 @@ import random
 # Ввод: -2/3 - -2
 # Вывод: 1 2/3
 
-def gcd(a,b):
+def gcd(a, b):
     while b:
-        a,b = b,a%b
+        a, b = b, a % b
     return a
 
-class Fraction:
 
-    def __init__(self,n,x,y):
-        if y == 0: raise Exception("Fraction can't have y==0")
-        self._x, self._y = x+n*y, y
+class Fraction:
+    def __init__(self, n, x, y):
+        if not n:
+            self.err = False
+            if n is str:
+                self.x, self.y = self.str2fraction(n)
+            if y == 0:
+                self.err = True
+                raise FractionError("Fraction can't have y==0")
+            self.x, self.y = x + n * y, y
+            i = gcd(self.x, self.y)
+            self.x = self.x // i
+            self.y = self.y // i
+        else:
+            self.err = True
 
     def __add__(self, other):
-        x=self._x*other._y+self._y*other._x
-        y=self._y*other._y
+        if self.err or other.err: raise FractionError("Один из операндов ошибочный")
+        if other is Fraction:
+            x = self.x * other.y + self.y * other.x
+            y = self.y * other.y
+        else:
+            try:
+                x = int(other) * self.y + self.x
+                y = self.y
+            except TypeError as err:
+                raise FractionError(err)
+        return Fraction(0, x, y)
 
 
+def str2fraction(self, str):
 
+
+class FractionError(Exception):
+    pass
 
 
 # Задание-2:
@@ -52,3 +80,11 @@ class Fraction:
 # Подсказка:
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
+
+f1 = Fraction()
+
+print("-" * 8, " Задание 1 ", "-" * 8)
+
+testfunc.test("Проверка str2fraction", f1.str2fraction("3 2/5"), (17, 5))
+testfunc.test("Проверка str2fraction", f1.str2fraction("2/5"), (2, 5))
+testfunc.test("Проверка str2fraction", f1.str2fraction("3"), (3, 1))

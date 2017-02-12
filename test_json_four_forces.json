@@ -1,0 +1,26 @@
+{
+ "electromagnetic": {
+  "mediator": "photons",
+  "range": "infinity",
+  "relative strength": "10^36",
+  "ru_description": "Ёлектромагнитное взаимодействие между частицами, обладающими электрическим зар€дом."
+ },
+ "gravity": {
+  "mediator": "gravitons",
+  "range": "infinity",
+  "relative strength": "1",
+  "ru_description": "”ниверсальное фундаментальное взаимодействие между всеми материальными телами."
+ },
+ "strong": {
+  "mediator": "gluons",
+  "range": "10^-15",
+  "relative strength": "10^38",
+  "ru_description": "—ильное €дерное взаимодействие, действует в масштабах пор€дка размера атомного €дра и менее."
+ },
+ "weak": {
+  "mediator": "W/Z bosons",
+  "range": "10^-18",
+  "relative strength": "10^25",
+  "ru_description": "—лабое €дерное взаимодействие, ответственное, в частности, за процессы бета-распада атомных €дер и слабые распады элементарных частиц"
+ }
+}
